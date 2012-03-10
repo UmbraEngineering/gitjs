@@ -90,6 +90,7 @@ Repo.prototype.listBranches = function(giveObjs, callback) {
 				branches.push(branch);
 			}
 		});
+		callback(null, branches);
 	});
 };
 
@@ -107,7 +108,7 @@ Repo.prototype.currentBranch = function(callback) {
 				break;
 			}
 		}
-		callback(current);
+		callback(null, current);
 	});
 };
 

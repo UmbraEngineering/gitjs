@@ -2,7 +2,7 @@
   "author": "James Brumond <james@jbrumond.me> (http://jbrumond.me)",
   "name": "gitjs",
   "description": "A wrapper for running git commands",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "url": ""
   },
