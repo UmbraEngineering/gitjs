@@ -135,18 +135,6 @@ Repo.prototype.checkout = function(name, callback) {
 
 exports.Repo = Repo;
 
-exports.test = function() {
-	exports.open('./projects/node-crux', function(err, repo) {
-		global.repo = repo;
-	});
-};
-
-exports.results = function(err, stdout, stderr) {
-	console.log('err: ', err);
-	console.log('stdout: ', stdout);
-	console.log('stderr: ', stderr);
-};
-
 /**
  * Parse holders in a string
  */
@@ -170,7 +158,7 @@ exports.open = function(repoPath, autoCreate, callback) {
 	isRepo(repoPath, function(exists) {
 		if (! exists) {
 			if (autoCreate) {
-				exports.init(repoPath, callback);
+				exports.init(repoPath, callback, true);
 			} else {
 				callback(new Error('repoPath is not a git repository'));
 			}
@@ -183,15 +171,30 @@ exports.open = function(repoPath, autoCreate, callback) {
 /**
  * Create a repo in the given directory
  */
-exports.init = function(repoPath, callback) {
+exports.init = function(repoPath, callback, autoCreate) {
 	var repo = new Repo(repoPath);
 	repo.run('init', function(err, stdout, stderr) {
 		if (err) {
-			callback(new Error(String(stderr)));
+			callback(new Error(String(stderr)), repo, true);
 		} else {
-			callback(null, repo);
+			callback(null, repo, true);
 		}
 	});
+};
+
+// ------------------------------------------------------------------
+//  Testing functions
+
+exports.test = function() {
+	exports.open('./projects/node-crux', function(err, repo) {
+		global.repo = repo;
+	});
+};
+
+exports.results = function(err, stdout, stderr) {
+	console.log('err: ', err);
+	console.log('stdout: ', stdout);
+	console.log('stderr: ', stderr);
 };
 
 // ------------------------------------------------------------------
