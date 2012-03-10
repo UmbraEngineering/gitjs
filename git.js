@@ -112,6 +112,40 @@ Repo.prototype.currentBranch = function(callback) {
 	});
 };
 
+// git remote ...
+Repo.prototype._withRemotes = function(callback) {
+	this.run('remote', function(err, stdout, stderr) {
+		if (err) {
+			return callback({
+				err: err,
+				stdout: stdout,
+				stderr: stderr
+			});
+		}
+		callback(null, String(stdout).split('\n'));
+	});
+};
+
+// git remote
+Repo.prototype.listRemotes = function(callback) {
+	this._withRemotes(callback);
+};
+
+// git remote
+Repo.prototype.remoteExists = function(remote, callback) {
+	this._withRemotes(function(err, remotes) {
+		if (err) {
+			return callback(err);
+		}
+		for (var i = 0, c = remotes.length; i < c; i++) {
+			if (remotes[i] === remote) {
+				return callback(null, true);
+			}
+		}
+		callback(null, false);
+	});
+};
+
 // git branch name
 Repo.prototype.createBranch = function(name, callback) {
 	this.run('branch ?', [name], callback);
