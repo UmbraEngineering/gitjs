@@ -248,9 +248,6 @@ function isRepo(repoPath, callback) {
 }
 
 function runGitCommand(cmd, cwd, callback) {
-	childProcess.exec('git ' + cmd, { cwd: cwd }, function() {
-		console.log(arguments);
-		callback();
-	});
+	childProcess.exec('git ' + cmd, { cwd: cwd }, callback);
 }
 
