@@ -2,13 +2,13 @@
   "author": "James Brumond <james@jbrumond.me> (http://jbrumond.me)",
   "name": "gitjs",
   "description": "A wrapper for running git commands",
-  "version": "0.0.5",
+  "version": "0.0.5-1",
   "repository": {
-    "url": ""
+    "url": "git://github.com/UmbraEngineering/gitjs.git"
   },
   "main": "git.js",
   "engines": {
-    "node": "~0.6.0"
+    "node": "*"
   },
   "dependencies": {},
   "devDependencies": {}
