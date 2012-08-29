@@ -165,6 +165,30 @@ Repo.prototype.checkout = function(name, callback) {
 	this.run('checkout ?', [name], callback);
 };
 
+// git status --porcelain
+Repo.prototype.status = function(callback) {
+	this.run('status --porcelain -z', function(err, stdout, stderr) {
+		// Handle errors
+		if (err) {
+			return callback({
+				err: err,
+				stdout: stdout,
+				stderr: stderr
+			});
+		}
+		var status = [ ];
+		String(stdout).trim().split('\0').forEach(function(item) {
+			if (item) {
+				status.push({
+					x: item[0],
+					y: item[1],
+					file: item.slice(3);
+				});
+			}
+		});
+	});
+};
+
 // ------------------------------------------------------------------
 //  Publics
 
@@ -220,8 +244,8 @@ exports.init = function(repoPath, callback, autoCreate) {
 // ------------------------------------------------------------------
 //  Testing functions
 
-exports.test = function() {
-	exports.open('./projects/node-crux', function(err, repo) {
+exports.test = function(repoPath) {
+	exports.open(repoPath, function(err, repo) {
 		global.repo = repo;
 	});
 };
