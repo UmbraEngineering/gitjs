@@ -41,7 +41,7 @@ Repo.prototype.commitAll = function(message, callback) {
 
 // git clone --local /repo/path target
 Repo.prototype.cloneTo = function(target, callback) {
-	this.run('clone --local ? ?' [this.repoPath, target], callback);
+	this.run('clone --local ? ?', [this.repoPath, target], callback);
 };
 
 // git clean (dirs ? -d)
@@ -182,7 +182,7 @@ Repo.prototype.status = function(callback) {
 				status.push({
 					x: item[0],
 					y: item[1],
-					file: item.slice(3);
+					file: item.slice(3)
 				});
 			}
 		});
