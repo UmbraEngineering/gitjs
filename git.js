@@ -137,12 +137,7 @@ Repo.prototype.remoteExists = function(remote, callback) {
 		if (err) {
 			return callback(err);
 		}
-		for (var i = 0, c = remotes.length; i < c; i++) {
-			if (remotes[i] === remote) {
-				return callback(null, true);
-			}
-		}
-		callback(null, false);
+		callback(null, (remotes.indexOf(remote) >= 0));
 	});
 };
 
@@ -186,6 +181,7 @@ Repo.prototype.status = function(callback) {
 				});
 			}
 		});
+		callback(null, status);
 	});
 };
 
