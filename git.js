@@ -185,6 +185,13 @@ Repo.prototype.status = function(callback) {
 	});
 };
 
+// git push
+Repo.prototype.push = function(callback) {
+	this.run("push --all", callback);
+};
+
+
+
 // ------------------------------------------------------------------
 //  Publics
 

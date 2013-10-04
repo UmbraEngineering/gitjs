@@ -213,3 +213,14 @@ Runs a `git status --porcelain -z` command and parses the results into an array 
 }
 ```
 
+#### Repo::push (<Function> callback )
+
+Pushing commits to git
+
+```javascript
+repo.push(function(err, stdout, stderr) {
+	
+	// ...
+	
+});
+```
