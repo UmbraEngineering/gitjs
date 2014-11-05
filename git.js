@@ -265,7 +265,7 @@ exports.results = function(err, stdout, stderr) {
 function isRepo(repoPath, callback) {
 	var git = path.join(repoPath, '.git');
 	path.exists(git, function(exists) {
-		callback(!exists);
+		callback(exists);
 	});
 }
 
