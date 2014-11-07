@@ -185,6 +185,13 @@ Repo.prototype.status = function(callback) {
 	});
 };
 
+// git push
+Repo.prototype.push = function(callback) {
+	this.run("push --all", callback);
+};
+
+
+
 // ------------------------------------------------------------------
 //  Publics
 
@@ -258,12 +265,7 @@ exports.results = function(err, stdout, stderr) {
 function isRepo(repoPath, callback) {
 	var git = path.join(repoPath, '.git');
 	path.exists(git, function(exists) {
-		if (! exists) {
-			return callback(false);
-		}
-		fs.stat(git, function(err, stats) {
-			callback(! err && stats.isDirectory());
-		});
+		callback(exists);
 	});
 }
 
